@@ -3,14 +3,33 @@ import React, { useState, useEffect } from 'react';
 function DriverPage() {
   const [driversState, setDriversState] = useState([]);
   const [driver, setDriver] = useState({});
+  const [driverDetails, setDriverDetails] = useState('');
 
-  function DriverClicked(driverId) {
+  function DriverSelected(driverId) {
     useEffect(() => {
       fetch(`/api/driver/${driverId}`)
-        .then(rawDrivers => rawDrivers.json())
-        .then(driversObject => driversObject.data)
-        .then(drivers => setDriver(drivers));
+        .then(rawDriver => rawDriver.json())
+        .then(driverObject => driverObject.data)
+        .then(driver => {
+          console.log(driver);
+
+          setDriver(driver);
+        });
     });
+
+    return (
+      <div className="col" id="headline-details">
+        <h3>DRIVER DETAILS</h3>
+        <h4>{driver.photo}</h4>
+        <h4>NAME: {driver.name}</h4>
+        <h4>EMAIL: {driver.email}</h4>
+        <h4>PHONE: {driver.phone}</h4>
+        <h4>GENDER: {driver.gender}</h4>
+        <h4>AGENT: {driver.agent}</h4>
+        <h4>DOB: {driver.DOB}</h4>
+        <h4>ADDRESS: {driver.address}</h4>
+      </div>
+    );
   }
 
   useEffect(() => {
@@ -26,8 +45,8 @@ function DriverPage() {
         <section>
           <div className="container-fluid">
             <div className="row">
-              <Master driverData={driversState} DriverClicked={DriverClicked} />
-              <Detail />
+              <Master driverData={driversState} onClick={DriverSelected} />
+              <div>{Object.entries(driver)}</div>
             </div>
           </div>
         </section>
@@ -37,19 +56,11 @@ function DriverPage() {
 }
 
 function Master(props) {
-  console.log(props);
-
   const titles = props.driverData.map(driver => (
     <li
       className="headline-text"
       key={driver.driverID}
-      // style={{
-      //   height: '50px',
-      //   borderBottom: '0.3px  ',
-      //   backgroundColor: '#fff',
-      //   paddingTop: '10px',
-      // }}
-      onClick={props.DriverClicked.bind(this, driver.driverID)}
+      onClick={props.onClick.bind(this, driver.driverID)}
     >
       {driver.name}
     </li>
@@ -62,11 +73,20 @@ function Master(props) {
   );
 }
 
-function Detail(props) {
+function Detail({ driver }) {
   return (
     <div className="col" id="headline-details">
-      <h3>{props.details}</h3>
+      <h3>DRIVER DETAILS</h3>
+      <h4>{driver.photo}</h4>
+      <h4>NAME: {driver.name}</h4>
+      <h4>EMAIL: {driver.email}</h4>
+      <h4>PHONE: {driver.phone}</h4>
+      <h4>GENDER: {driver.gender}</h4>
+      <h4>AGENT: {driver.agent}</h4>
+      <h4>DOB: {driver.DOB}</h4>
+      <h4>ADDRESS: {driver.address}</h4>
     </div>
   );
 }
+
 export default DriverPage;

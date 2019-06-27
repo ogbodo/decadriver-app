@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Charts from '../Chart';
-import Table from '../Dashboard/Table';
+import GetTripsData from '../Dashboard/TripsTable';
 
 function Layout() {
   return (
@@ -11,7 +11,7 @@ function Layout() {
           <Charts />
         </Col>
         <Col sm={7}>
-          <Table />
+          <GetTripsData />
         </Col>
       </Row>
     </Container>
