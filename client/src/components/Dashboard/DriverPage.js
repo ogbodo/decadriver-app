@@ -1,13 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 function DriverPage() {
+  const [driversState, setDriversState] = useState([]);
+  const [driver, setDriver] = useState({});
+
+  function DriverClicked(driverId) {
+    useEffect(() => {
+      fetch(`/api/driver/${driverId}`)
+        .then(rawDrivers => rawDrivers.json())
+        .then(driversObject => driversObject.data)
+        .then(drivers => setDriver(drivers));
+    });
+  }
+
+  useEffect(() => {
+    fetch('/api/drivers')
+      .then(rawDrivers => rawDrivers.json())
+      .then(driversObject => driversObject.data)
+      .then(drivers => setDriversState(drivers));
+  }, []);
+
   return (
     <>
       <main>
         <section>
           <div className="container-fluid">
             <div className="row">
-              <Master />
+              <Master driverData={driversState} DriverClicked={DriverClicked} />
               <Detail />
             </div>
           </div>
@@ -18,23 +37,26 @@ function DriverPage() {
 }
 
 function Master(props) {
-  const titleCollection = [
-    'first',
-    'second',
-    'third',
-    'first',
-    'second',
-    'third',
-  ];
+  console.log(props);
 
-  const titles = titleCollection.map((key, index) => (
-    <li className="headline-text" key={index} onClick={props.onItemClicked}>
-      {key}
+  const titles = props.driverData.map(driver => (
+    <li
+      className="headline-text"
+      key={driver.driverID}
+      // style={{
+      //   height: '50px',
+      //   borderBottom: '0.3px  ',
+      //   backgroundColor: '#fff',
+      //   paddingTop: '10px',
+      // }}
+      onClick={props.DriverClicked.bind(this, driver.driverID)}
+    >
+      {driver.name}
     </li>
   ));
 
   return (
-    <div class="col-2">
+    <div className="col-4">
       <ul id="headlines">{titles}</ul>
     </div>
   );

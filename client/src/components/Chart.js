@@ -45,40 +45,24 @@ function Charts() {
 
   return (
     <div className="Chart">
-      <Pie
-        data={genderRatio.chartData}
-        options={{
-          title: {
-            display: true,
-            fontSize: 25,
-          },
-        }}
-      />
-      <Chart
-        ChartType={Pie}
-        data={tripsSummary.chartData}
-        options={{
-          title: {
-            display: true,
-            fontSize: 25,
-          },
-        }}
-      />
-      <Bar
-        ChartType={Pie}
-        data={revenueSummary.chartData}
-        options={{
-          title: {
-            display: true,
-            fontSize: 25,
-          },
-        }}
-      />
+      <Chart ChartType={Pie} data={genderRatio.chartData} />
+      <Chart ChartType={Pie} data={tripsSummary.chartData} />
+      <Chart ChartType={Bar} data={revenueSummary.chartData} />
     </div>
   );
 }
 
 function Chart({ ChartType, ...props }) {
-  return <ChartType {...props} />;
+  return (
+    <ChartType
+      options={{
+        title: {
+          display: true,
+          fontSize: 25,
+        },
+      }}
+      {...props}
+    />
+  );
 }
 export default Charts;

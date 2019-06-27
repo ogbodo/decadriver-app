@@ -78,28 +78,28 @@ body {
 .main-nav__item a {
   text-decoration: none;
   font-weight: bold;
-  color: #ff1b68;
+  color: rgb(207, 51, 207);
 }
 
 .main-nav__item a:hover,
 .main-nav__item a:active {
   color: white;
-  border-bottom: #ff1b68 solid 4px;
+  border-bottom: rgb(207, 51, 207) solid 4px;
 }
 
 .main-nav__item-cta a {
   text-decoration: none;
   font-weight: bold;
   color: white;
-  background: #ff1b68;
+  background: rgb(207, 51, 207);
   border-radius: 8px;
   padding: 4px;
 }
 
 .main-nav__item-cta a:hover,
 .main-nav__item-cta a:active {
-  color: #ff1b68;
-  border-bottom: #ff1b68 solid 4px;
+  color: rgb(207, 51, 207);
+  border-bottom: rgb(207, 51, 207) solid 4px;
   background: #fff;
 }
 
@@ -162,6 +162,7 @@ body {
   font-size: 24px;
   list-style: none;
   cursor: pointer;
+  padding-top: 10px;
 }
 
 #headline-details {
@@ -170,9 +171,9 @@ body {
   margin-left: 70px;
 }
 
-.col-2 li:active,
-.col-2 li:hover {
-  color: #2efd5c;
+.col-4 li:active,
+.col-4 li:hover {
+  color: #61dafb;
 }
 
 #hire-form_title {

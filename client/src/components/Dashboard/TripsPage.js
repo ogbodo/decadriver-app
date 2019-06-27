@@ -1,7 +1,4 @@
 import React from 'react';
-// import {fetch}
-
-function returnDrivers() {}
 
 function TripsPage() {
   return (
@@ -30,7 +27,7 @@ function Master(props) {
     'third',
   ];
 
-  const titles = titleCollection.map((key, index) => (
+  const titles = titleCollection.data.map((key, index) => (
     <li className="headline-text" key={index} onClick={props.onItemClicked}>
       {key}
     </li>

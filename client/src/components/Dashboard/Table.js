@@ -1,51 +1,54 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table } from 'react-bootstrap';
 
-const TableExampleCelledStriped = () => (
-  <Table striped bordered hover>
-    <thead>
-      <tr>
-        <th>S/N</th>
-        <th>Driver Name</th>
-        <th>Customer Name</th>
-        <th>Trip Amount</th>
-      </tr>
-    </thead>
-    <Row />
-  </Table>
-);
+function GetTripsData() {
+  const [tripState, setTripState] = useState([]);
 
-function Row() {
-  const tableData = [
-    [1, 'Jacob', 'Thornton', '@fat'],
-    [2, 'Jacob', 'Thornton', '@fat'],
-    [3, 'Jacob', 'Thornton', '@fat'],
-    [1, 'Jacob', 'Thornton', '@fat'],
-    [2, 'Jacob', 'Thornton', '@fat'],
-    [3, 'Jacob', 'Thornton', '@fat'],
-    [1, 'Jacob', 'Thornton', '@fat'],
-    [2, 'Jacob', 'Thornton', '@fat'],
-    [3, 'Jacob', 'Thornton', '@fat'],
-    [1, 'Jacob', 'Thornton', '@fat'],
-    [2, 'Jacob', 'Thornton', '@fat'],
-    [3, 'Jacob', 'Thornton', '@fat'],
-    [1, 'Jacob', 'Thornton', '@fat'],
-  ];
+  useEffect(() => {
+    fetch('/api/trips')
+      .then(trips => trips.json())
+      .then(objectData => objectData.data)
+      .then(tripsData => {
+        setTripState(tripsData);
+      });
+  }, []);
+
+  function onTripClicked(tripId) {
+    alert(tripId);
+  }
+
+  const rows = tripState.map((trip, index) => {
+    return (
+      <tr
+        key={trip.tripID}
+        style={{
+          cursor: 'pointer',
+        }}
+        onClick={onTripClicked.bind(this, trip.tripID)}
+      >
+        <td>{trip.driverID}</td>
+        <td>{trip.user.name}</td>
+        <td>{trip.billedAmount}</td>
+        <td>{trip.isCash ? 'Cash' : 'None Cash'}</td>
+      </tr>
+    );
+  });
+
   return (
-    <tbody>
-      {tableData.map(data => {
-        return (
+    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+      <Table striped bordered hover>
+        <thead>
           <tr>
-            <td>{data[0]}</td>
-            <td>{data[1]}</td>
-            <td>{data[2]}</td>
-            <td>{data[3]}</td>
+            <th>Driver Name</th>
+            <th>Customer Name</th>
+            <th>Trip Amount</th>
+            <th>Payment Mode</th>
           </tr>
-        );
-      })}
-    </tbody>
+        </thead>
+        <tbody>{rows}</tbody>
+      </Table>
+    </div>
   );
 }
-function Td(props) {}
 
-export default TableExampleCelledStriped;
+export default GetTripsData;
