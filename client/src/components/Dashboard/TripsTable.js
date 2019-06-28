@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Table } from 'react-bootstrap';
 
 function GetTripsData() {
@@ -13,10 +14,6 @@ function GetTripsData() {
       });
   }, []);
 
-  function onTripClicked(tripId) {
-    alert(tripId);
-  }
-
   const rows = tripState.map((trip, index) => {
     return (
       <tr
@@ -24,9 +21,12 @@ function GetTripsData() {
         style={{
           cursor: 'pointer',
         }}
-        onClick={onTripClicked.bind(this, trip.tripID)}
       >
-        <td>{trip.driverID}</td>
+        <td>
+          <Link to={`/TripsPage/${trip.tripID}`}>
+            <DriverCell driverId={trip.driverID} />
+          </Link>
+        </td>
         <td>{trip.user.name}</td>
         <td>{trip.billedAmount}</td>
         <td>{trip.isCash ? 'Cash' : 'None Cash'}</td>
@@ -35,7 +35,7 @@ function GetTripsData() {
   });
 
   return (
-    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+    <div className="table-wrapper-scroll-y my-custom-scrollbar">
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -49,6 +49,28 @@ function GetTripsData() {
       </Table>
     </div>
   );
+}
+function DriverCell(props) {
+  const [driverName, setDriverName] = useState('No Name');
+  const controller = new AbortController();
+
+  useEffect(() => {
+    fetch(`/api/driver/${props.driverId}`)
+      .then(rawDriver => rawDriver.json())
+      .then(driverObject => driverObject.data)
+      .then(driver => {
+        setDriverName(driver.name);
+      })
+      .catch(error => {
+        controller.abort();
+      });
+
+    return () => {
+      controller.abort();
+    };
+  });
+
+  return <td>{driverName}</td>;
 }
 
 export default GetTripsData;

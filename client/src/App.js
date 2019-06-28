@@ -14,7 +14,7 @@ function App() {
       <Header />
       <Route path="/" exact component={Dashboard} />
       <Route path="/DriverPage" component={DriversPage} />
-      <Route path="/TripsPage" component={TripsPage} />
+      <Route path="/TripsPage/:id" component={TripsPage} />
     </div>
   );
 }
