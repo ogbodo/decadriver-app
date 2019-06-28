@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ListGroup, ListGroupItem, Card } from 'reactstrap';
 
 function DriverPage() {
   const [drivers, setDrivers] = useState([]);
@@ -40,18 +41,19 @@ function DriverPage() {
 
 function Master(props) {
   const titles = props.driverData.map(driver => (
-    <li
+    <ListGroupItem
+      style={{ marginTop: '20px', boxShadow: '1px 3px 1px rgb(207, 51, 207)' }}
       className="headline-text"
       key={driver.driverID}
       onClick={props.onClick.bind(this, driver.driverID)}
     >
       {driver.name}
-    </li>
+    </ListGroupItem>
   ));
 
   return (
     <div className="col-4">
-      <ul id="headlines">{titles}</ul>
+      <ListGroup id="headlines">{titles}</ListGroup>
     </div>
   );
 }
@@ -59,19 +61,36 @@ function Master(props) {
 function Detail({ driver }) {
   return (
     <div className="col" id="headline-details">
-      <h3>DRIVER DETAILS</h3>
-      <h4>{driver.photo}</h4>
-      <h4>NAME: {driver.name}</h4>
-      <h4>EMAIL: {driver.email}</h4>
-      <h4>PHONE: {driver.phone}</h4>
-      <h4>GENDER: {driver.gender}</h4>
-      <h4>AGENT: {driver.agent}</h4>
-      <h4>DOB: {driver.DOB}</h4>
-      <h4>ADDRESS: {driver.address}</h4>
-      <h4>
-        VEHICLES:
-        {driver.vehicleID && <VehicleCell vehicleIDs={driver.vehicleID} />}
-      </h4>
+      <Card
+        style={{
+          marginTop: '20px',
+          boxShadow: '1px 3px 1px rgb(207, 51, 207)',
+        }}
+      >
+        <Card
+          style={{
+            boxShadow: '1px 8px 8px rgb(207, 51, 207)',
+            textAlign: 'center',
+            marginBottom: '10px',
+            color: '#61dafb',
+            fontWeight: 'bold',
+          }}
+        >
+          <h3>DRIVER DETAILS</h3>
+        </Card>
+        <h4>{driver.photo}</h4>
+        <h4>NAME: {driver.name}</h4>
+        <h4>EMAIL: {driver.email}</h4>
+        <h4>PHONE: {driver.phone}</h4>
+        <h4>GENDER: {driver.gender}</h4>
+        <h4>AGENT: {driver.agent}</h4>
+        <h4>DOB: {driver.DOB}</h4>
+        <h4>ADDRESS: {driver.address}</h4>
+        <h4>
+          VEHICLES:
+          {driver.vehicleID && <VehicleCell vehicleIDs={driver.vehicleID} />}
+        </h4>
+      </Card>
     </div>
   );
 }
@@ -89,7 +108,7 @@ function VehicleCell({ vehicleIDs }) {
     Promise.all(vehicleIdsPromise).then(data => {
       setDriverVehicle(data);
     });
-  });
+  }, []);
 
   const vehicles = driverVehicle.map(vehicle => (
     <React.Fragment key={vehicle.vehicleID}>

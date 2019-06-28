@@ -71,7 +71,7 @@ function DriverCell(props) {
     // return () => {
     //   controller.abort();
     // };
-  });
+  }, []);
 
   return driverName;
 }

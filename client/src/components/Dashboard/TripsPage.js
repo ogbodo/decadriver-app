@@ -18,7 +18,7 @@ function TripsPage() {
       .then(trip => {
         setTripDetails(trip[0]);
       });
-  });
+  }, []);
 
   return (
     <div className="col" id="headline-details">
