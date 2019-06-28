@@ -198,10 +198,8 @@ body {
   margin: 10px auto;
 }
 
-/* .table-style tr:active,
-.table-style tr:hover {
-  color: #61dafb;
+.tbody {
+  height: 200px;
+  overflow-y: auto;
+  width: 100%;
 }
-.table-style {
-  color: #61dafb;
-} */

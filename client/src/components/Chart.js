@@ -70,7 +70,7 @@ function Charts() {
 function Chart({ ChartType, ...props }) {
   return (
     <Card
-      style={{ marginTop: '20px', boxShadow: '1px 3px 1px rgb(207, 51, 207)' }}
+      style={{ marginTop: '10px', boxShadow: '1px 3px 1px rgb(207, 51, 207)' }}
     >
       <ChartType
         options={{

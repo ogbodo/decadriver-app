@@ -42,7 +42,7 @@ function DriverPage() {
 function Master(props) {
   const titles = props.driverData.map(driver => (
     <ListGroupItem
-      style={{ marginTop: '20px', boxShadow: '1px 3px 1px rgb(207, 51, 207)' }}
+      style={{ marginTop: '10px', boxShadow: '1px 3px 1px rgb(207, 51, 207)' }}
       className="headline-text"
       key={driver.driverID}
       onClick={props.onClick.bind(this, driver.driverID)}
@@ -63,7 +63,6 @@ function Detail({ driver }) {
     <div className="col" id="headline-details">
       <Card
         style={{
-          marginTop: '20px',
           boxShadow: '1px 3px 1px rgb(207, 51, 207)',
         }}
       >
@@ -72,24 +71,25 @@ function Detail({ driver }) {
             boxShadow: '1px 8px 8px rgb(207, 51, 207)',
             textAlign: 'center',
             marginBottom: '10px',
-            color: '#61dafb',
+            color: 'rgb(207, 51, 207)',
             fontWeight: 'bold',
           }}
         >
           <h3>DRIVER DETAILS</h3>
         </Card>
-        <h4>{driver.photo}</h4>
-        <h4>NAME: {driver.name}</h4>
-        <h4>EMAIL: {driver.email}</h4>
-        <h4>PHONE: {driver.phone}</h4>
-        <h4>GENDER: {driver.gender}</h4>
-        <h4>AGENT: {driver.agent}</h4>
-        <h4>DOB: {driver.DOB}</h4>
-        <h4>ADDRESS: {driver.address}</h4>
-        <h4>
-          VEHICLES:
-          {driver.vehicleID && <VehicleCell vehicleIDs={driver.vehicleID} />}
-        </h4>
+        <Card style={{ padding: '30px 30px 0px 30px ' }}>
+          <h4>NAME: {driver.name}</h4>
+          <h4>EMAIL: {driver.email}</h4>
+          <h4>PHONE: {driver.phone}</h4>
+          <h4>GENDER: {driver.gender}</h4>
+          <h4>AGENT: {driver.agent}</h4>
+          <h4>DOB: {driver.DOB}</h4>
+          <h4>ADDRESS: {driver.address}</h4>
+          <h4>
+            VEHICLES:
+            {driver.vehicleID && <VehicleCell vehicleIDs={driver.vehicleID} />}
+          </h4>
+        </Card>
       </Card>
     </div>
   );
@@ -110,14 +110,14 @@ function VehicleCell({ vehicleIDs }) {
     });
   }, []);
 
-  const vehicles = driverVehicle.map(vehicle => (
+  const vehicles = driverVehicle.map((vehicle, index) => (
     <React.Fragment key={vehicle.vehicleID}>
       <li>Manufacturer: {vehicle.manufacturer}</li>
       <li>Plate No: {vehicle.plate}</li>
       <li>Acquired on: {vehicle.acquired}</li>
       <li>Acquired New: {vehicle.acquiredNew ? 'Yes' : 'No'}</li>
       <li>Vehicle ID: {vehicle.vehicleID}</li>
-      <br />
+      {index !== driverVehicle.length - 1 ? <br /> : <></>}
     </React.Fragment>
   ));
 
