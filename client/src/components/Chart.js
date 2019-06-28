@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Bar, Pie } from 'react-chartjs-2';
-
+import { Card } from 'reactstrap';
 function Charts() {
   const [revenueSummary, setRevenueSummary] = useState({});
   const [genderRatio, seGenderRatio] = useState({});
@@ -69,15 +69,19 @@ function Charts() {
 
 function Chart({ ChartType, ...props }) {
   return (
-    <ChartType
-      options={{
-        title: {
-          display: true,
-          fontSize: 25,
-        },
-      }}
-      {...props}
-    />
+    <Card
+      style={{ marginTop: '20px', boxShadow: '1px 3px 1px rgb(207, 51, 207)' }}
+    >
+      <ChartType
+        options={{
+          title: {
+            display: true,
+            fontSize: 25,
+          },
+        }}
+        {...props}
+      />
+    </Card>
   );
 }
 export default Charts;
