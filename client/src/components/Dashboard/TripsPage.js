@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { ListGroup, ListGroupItem, Card } from 'reactstrap';
+
 function getTripId() {
   const idPattern = /^[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}$/;
   const fullPath = window.location.pathname;
