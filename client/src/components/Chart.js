@@ -1,47 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Bar, Pie } from 'react-chartjs-2';
 
 function Charts() {
-  const [revenueSummary] = useState({
-    chartData: {
-      labels: ['Billed Total', 'Cash Billed Total', 'Non Cash Billed Total'],
-      datasets: [
-        {
-          label: 'Max Earning',
-          data: [128224.69, 69043.8, 59180.89],
-          backgroundColor: [
-            'rgba(255,149,237,0.6)',
-            'rgba(54,162,235,0.6)',
-            'rgba(75,192,192,0.6)',
-          ],
-        },
-      ],
-    },
-  });
+  const [revenueSummary, setRevenueSummary] = useState({});
+  const [genderRatio, seGenderRatio] = useState({});
+  const [tripsSummary, setTripsSummary] = useState({});
 
-  const [genderRatio] = useState({
-    chartData: {
-      labels: ['Total Females', 'Total Males'],
-      datasets: [
-        {
-          data: [20, 30],
-          backgroundColor: ['rgba(255,149,237,0.6)', 'rgba(54,162,235,0.6)'],
-        },
-      ],
-    },
-  });
+  useEffect(() => {
+    fetch(`/api/stats`)
+      .then(rawStat => rawStat.json())
+      .then(statObject => statObject.data)
+      .then(stat => {
+        const colors = ['rgba(255,149,237,0.6)', 'rgba(54,162,235,0.6)'];
+        setRevenueSummary({
+          chartData: {
+            labels: [
+              'Billed Total',
+              'Cash Billed Total',
+              'Non Cash Billed Total',
+            ],
+            datasets: [
+              {
+                label: 'Max Earning',
+                data: [
+                  stat.billedTotal,
+                  stat.cashBilledTotal,
+                  stat.nonCashBilledTotal,
+                ],
+                backgroundColor: ['rgba(75,192,192,0.6)', ...colors],
+              },
+            ],
+          },
+        });
 
-  const [tripsSummary] = useState({
-    chartData: {
-      labels: ['No. of Cash Trips', 'No. of None Cash Trips'],
-      datasets: [
-        {
-          data: [24, 26],
-          backgroundColor: ['rgba(255,149,237,0.6)', 'rgba(54,162,235,0.6)'],
-        },
-      ],
-    },
-  });
+        seGenderRatio({
+          chartData: {
+            labels: ['Total Females', 'Total Males'],
+            datasets: [
+              {
+                data: [stat.female, stat.male],
+                backgroundColor: colors,
+              },
+            ],
+          },
+        });
+        setTripsSummary({
+          chartData: {
+            labels: ['No. of Cash Trips', 'No. of None Cash Trips'],
+            datasets: [
+              {
+                data: [stat.noOfCashTrips, stat.noOfNonCashTrips],
+                backgroundColor: colors,
+              },
+            ],
+          },
+        });
+      });
+  }, []);
 
   return (
     <div className="Chart">

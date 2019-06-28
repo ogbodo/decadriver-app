@@ -14,7 +14,7 @@ function GetTripsData() {
       });
   }, []);
 
-  const rows = tripState.map((trip, index) => {
+  const rows = tripState.map(trip => {
     return (
       <tr
         key={trip.tripID}
@@ -50,9 +50,10 @@ function GetTripsData() {
     </div>
   );
 }
+
 function DriverCell(props) {
   const [driverName, setDriverName] = useState('No Name');
-  const controller = new AbortController();
+  // const controller = new AbortController();
 
   useEffect(() => {
     fetch(`/api/driver/${props.driverId}`)
@@ -62,15 +63,17 @@ function DriverCell(props) {
         setDriverName(driver.name);
       })
       .catch(error => {
-        controller.abort();
+        console.log(error);
+
+        // controller.abort();
       });
 
-    return () => {
-      controller.abort();
-    };
+    // return () => {
+    //   controller.abort();
+    // };
   });
 
-  return <td>{driverName}</td>;
+  return driverName;
 }
 
 export default GetTripsData;

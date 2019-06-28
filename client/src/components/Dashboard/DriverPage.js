@@ -21,6 +21,7 @@ function DriverPage() {
         setDriver(drivers[0]);
       });
   }, []);
+
   return (
     <>
       <main>
@@ -67,8 +68,40 @@ function Detail({ driver }) {
       <h4>AGENT: {driver.agent}</h4>
       <h4>DOB: {driver.DOB}</h4>
       <h4>ADDRESS: {driver.address}</h4>
+      <h4>
+        VEHICLES:
+        {driver.vehicleID && <VehicleCell vehicleIDs={driver.vehicleID} />}
+      </h4>
     </div>
   );
 }
 
+function VehicleCell({ vehicleIDs }) {
+  const [driverVehicle, setDriverVehicle] = useState([]);
+
+  useEffect(() => {
+    const vehicleIdsPromise = vehicleIDs.map(vehicleID => {
+      return fetch(`/api/vehicle/${vehicleID}`)
+        .then(data => data.json())
+        .then(data => data.data);
+    });
+
+    Promise.all(vehicleIdsPromise).then(data => {
+      setDriverVehicle(data);
+    });
+  });
+
+  const vehicles = driverVehicle.map(vehicle => (
+    <React.Fragment key={vehicle.vehicleID}>
+      <li>Manufacturer: {vehicle.manufacturer}</li>
+      <li>Plate No: {vehicle.plate}</li>
+      <li>Acquired on: {vehicle.acquired}</li>
+      <li>Acquired New: {vehicle.acquiredNew ? 'Yes' : 'No'}</li>
+      <li>Vehicle ID: {vehicle.vehicleID}</li>
+      <br />
+    </React.Fragment>
+  ));
+
+  return <ul>{vehicles}</ul>;
+}
 export default DriverPage;

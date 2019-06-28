@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-
 function getTripId() {
+  const idPattern = /^[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}$/;
   const fullPath = window.location.pathname;
-  return fullPath.split('/')[2];
+  for (const pathSegment of fullPath.split('/')) {
+    if (idPattern.test(pathSegment)) return pathSegment;
+  }
 }
 
 function TripsPage() {
@@ -14,7 +16,6 @@ function TripsPage() {
       .then(rawTrip => rawTrip.json())
       .then(tripObject => tripObject.data)
       .then(trip => {
-        console.log(trip[0]);
         setTripDetails(trip[0]);
       });
   });

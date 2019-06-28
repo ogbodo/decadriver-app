@@ -26,15 +26,4 @@ function Dashboard() {
   );
 }
 
-// data: {
-//   male: 30,
-//   female: 20,
-//   noOfCashTrips: 26,
-//   noOfNonCashTrips: 24,
-//   billedTotal: 128224.69,
-//   cashBilledTotal: 69043.8,
-//   nonCashBilledTotal: 59180.89,
-// }
-// }
-
 export default Dashboard;
