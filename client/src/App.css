@@ -56,6 +56,7 @@ body {
   margin-left: 10px;
   padding: 8px 10px;
 }
+
 #logo {
   width: 30px;
   border-radius: 30px;
@@ -69,16 +70,12 @@ body {
 .main-nav__item {
   list-style: none;
   margin: 2px;
-  padding: 0px 16px;
+  padding: 0px 26px;
+  font-size: 20px;
   display: inline-block;
 }
 .main-nav {
   text-align: right;
-}
-.main-nav__item a {
-  text-decoration: none;
-  font-weight: bold;
-  color: rgb(207, 51, 207);
 }
 
 .main-nav__item a:hover,
@@ -165,12 +162,6 @@ body {
   padding-top: 10px;
 }
 
-#headline-details {
-  text-align: left;
-  margin-top: 20px;
-  margin-left: 70px;
-}
-
 .col-4 li:active,
 .col-4 li:hover {
   color: #61dafb;
@@ -198,14 +189,14 @@ body {
   margin: 10px auto;
 }
 
-.driver-header {
+.title {
   box-shadow: 1px 8px 8px rgb(207, 51, 207);
   text-align: center;
   margin-bottom: 10px;
   color: rgb(207, 51, 207);
   font-weight: bold;
 }
-.driver-sub-header {
+.sub-title {
   box-shadow: 1px 2px 2px rgb(207, 51, 207);
   text-align: center;
   margin-bottom: 10px;

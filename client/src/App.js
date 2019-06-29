@@ -34,10 +34,10 @@ function App() {
 function Footer() {
   return (
     <footer className="main-header">
-      <Navs />
+      <Navs />© 2019 Info.com - All Rights Reserved.
     </footer>
   );
 }
-// © 2019 Info.com - All Rights Reserved.
+//
 
 export default App;

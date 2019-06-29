@@ -1,52 +1,110 @@
 import React, { useState, useEffect } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import DriverDetails from '../DriverDetails';
+import Hoc from '../Hoc';
 import { ListGroup, ListGroupItem, Card } from 'reactstrap';
 
-function getTripId() {
+function getId(type) {
   const idPattern = /^[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}$/;
   const fullPath = window.location.pathname;
-  for (const pathSegment of fullPath.split('/')) {
-    if (idPattern.test(pathSegment)) return pathSegment;
+  const tripDriverIds = fullPath.split('/');
+
+  for (const pathSegment of tripDriverIds) {
+    const payload = pathSegment.split(',');
+    if (payload.length > 1) {
+      if (type === 'trip' && idPattern.test(payload[0])) return payload[0];
+      if (type === 'driver' && idPattern.test(payload[1])) return payload[1];
+      break;
+    }
   }
 }
 
-function TripsPage() {
-  const tripId = getTripId();
+function TripDetails({ tripID }) {
   const [tripDetails, setTripDetails] = useState({});
 
   useEffect(() => {
-    fetch(`/api/trip/${tripId}`)
-      .then(rawTrip => rawTrip.json())
-      .then(tripObject => tripObject.data)
+    fetch(`/api/trip/${tripID}`)
+      .then(response => response.json())
+      .then(data => data.data)
       .then(trip => {
         setTripDetails(trip[0]);
       });
   }, []);
 
   return (
-    <div className="col" id="headline-details">
-      <h3>TRIP DETAILS</h3>
-      <h4>Driver Id: {tripDetails.driverID}</h4>
-      <h4>Trip Id: {tripDetails.tripID}</h4>
-      <h4>Mode of Payment: {tripDetails.isCash ? 'Cash' : 'None Cash'}</h4>
-      <h4>Billed Amount: {tripDetails.billedAmount}</h4>
-      <h4>Customer Name: {tripDetails.user ? tripDetails.user.name : ''}</h4>
-      <h4>
-        Customer Gender: {tripDetails.user ? tripDetails.user.gender : ''}
-      </h4>
-      <h4>
-        Customer Company: {tripDetails.user ? tripDetails.user.company : ''}
-      </h4>
-      <h4>Customer Email: {tripDetails.user ? tripDetails.user.email : ''}</h4>
-      <h4>Customer phone: {tripDetails.user ? tripDetails.user.phone : ''}</h4>
-      <h4>Trip Date: {tripDetails.created}</h4>
-      <h4>
-        Pickup Address: {tripDetails.pickup ? tripDetails.pickup.address : ''}
-      </h4>
-      <h4>
-        Destination Address:{' '}
-        {tripDetails.destination ? tripDetails.destination.address : ''}
-      </h4>
-    </div>
+    <Card
+      style={{
+        marginTop: '10px',
+        marginBottom: '10px',
+        boxShadow: '1px 3px 1px rgb(207, 51, 207)',
+      }}
+    >
+      <Card className="title">
+        <h3>TRIP DETAILS</h3>
+      </Card>
+      <Card>
+        <Card
+          style={{
+            boxShadow: '1px 3px 3px rgb(207, 51, 207)',
+            padding: '5px 0px 5px 5px ',
+          }}
+        >
+          <div className="col">
+            <ListGroupItem>Driver Id: {tripDetails.driverID}</ListGroupItem>
+            <ListGroupItem>Trip Id: {tripDetails.tripID}</ListGroupItem>
+            <ListGroupItem>
+              Mode of Payment: {tripDetails.isCash ? 'Cash' : 'None Cash'}
+            </ListGroupItem>
+            <ListGroupItem>
+              Billed Amount: {tripDetails.billedAmount}
+            </ListGroupItem>
+            <ListGroupItem>
+              Customer Name: {tripDetails.user ? tripDetails.user.name : ''}
+            </ListGroupItem>
+            <ListGroupItem>
+              Customer Gender: {tripDetails.user ? tripDetails.user.gender : ''}
+            </ListGroupItem>
+            <ListGroupItem>
+              Customer Company:{' '}
+              {tripDetails.user ? tripDetails.user.company : ''}
+            </ListGroupItem>
+            <ListGroupItem>
+              Customer Email: {tripDetails.user ? tripDetails.user.email : ''}
+            </ListGroupItem>
+            <ListGroupItem>
+              Customer phone: {tripDetails.user ? tripDetails.user.phone : ''}
+            </ListGroupItem>
+            <ListGroupItem>Trip Date: {tripDetails.created}</ListGroupItem>
+            <ListGroupItem>
+              Pickup Address:{' '}
+              {tripDetails.pickup ? tripDetails.pickup.address : ''}
+            </ListGroupItem>
+            <ListGroupItem>
+              Destination Address:{' '}
+              {tripDetails.destination ? tripDetails.destination.address : ''}
+            </ListGroupItem>
+          </div>
+        </Card>
+      </Card>
+    </Card>
+  );
+}
+
+function TripsPage() {
+  const tripId = getId('trip');
+  const driverId = getId('driver');
+
+  return (
+    <Container>
+      <Row>
+        <Col sm={6}>
+          <TripDetails tripID={tripId} />
+        </Col>
+        <Col sm={6}>
+          <Hoc Component={DriverDetails} driverId={driverId} />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
