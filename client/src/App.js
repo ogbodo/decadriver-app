@@ -33,8 +33,8 @@ function App() {
 
 function Footer() {
   return (
-    <footer className="main-header">
-      <Navs />© 2019 Info.com - All Rights Reserved.
+    <footer className="main-header" style={{ textAlign: 'center' }}>
+      © 2019 Info.com - All Rights Reserved.
     </footer>
   );
 }

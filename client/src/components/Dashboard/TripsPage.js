@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import DriverDetails from '../DriverDetails';
 import Hoc from '../Hoc';
-import { ListGroup, ListGroupItem, Card } from 'reactstrap';
+import { ListGroupItem, Card } from 'reactstrap';
 
 function getId(type) {
   const idPattern = /^[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}$/;

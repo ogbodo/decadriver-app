@@ -63,6 +63,7 @@ function VehicleCell({ vehicleIDs }) {
     Promise.all(vehicleIdsPromise).then(data => {
       setDriverVehicle(data);
     });
+    /**TODO FOR BOND */
   }, []);
 
   const vehicles = driverVehicle.map((vehicle, index) => (

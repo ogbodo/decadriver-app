@@ -7,8 +7,6 @@ function DriverPage() {
   const [driver, setDriver] = useState({});
 
   function DriverSelected(driverId) {
-    console.log(driverId);
-
     const driverFound = drivers.find(driver => driver.driverID === driverId);
     setDriver(driverFound);
     console.log(driverFound);
