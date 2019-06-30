@@ -38,13 +38,13 @@ function DriverPage() {
   );
 }
 
-function Master(props) {
-  const titles = props.driverData.map(driver => (
+function Master({ driverData, onClick }) {
+  const titles = driverData.map(driver => (
     <ListGroupItem
       style={{ marginTop: '20px', boxShadow: '1px 3px 1px rgb(207, 51, 207)' }}
       className="headline-text"
       key={driver.driverID}
-      onClick={props.onClick.bind(this, driver.driverID)}
+      onClick={onClick.bind(this, driver.driverID)}
     >
       {driver.name}
     </ListGroupItem>

@@ -5,6 +5,7 @@ import DateFormatter from './DateFormatter';
 function DriverDetails({ driver }) {
   console.log('THTHTHTH', driver);
   const status = driver || false;
+
   const vehicleComponent = (
     <Card className="sub-title" style={{ marginTop: '5px' }}>
       <h4 style={{ textAlign: 'center' }}>
@@ -20,6 +21,7 @@ function DriverDetails({ driver }) {
       </h4>
     </Card>
   );
+
   return (
     <div className="col" id="headline-details">
       <Card
@@ -79,8 +81,7 @@ function VehicleCell({ vehicleIDs }) {
     Promise.all(vehicleIdsPromise).then(data => {
       setDriverVehicle(data);
     });
-    /**TODO FOR BOND */
-  }, []);
+  }, [vehicleIDs]);
 
   const vehicles = driverVehicle.map((vehicle, index) => (
     <React.Fragment key={vehicle.vehicleID}>

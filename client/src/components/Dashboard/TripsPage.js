@@ -29,7 +29,7 @@ function TripDetails({ tripID }) {
       .then(trip => {
         setTripDetails(trip[0]);
       });
-  }, []);
+  }, [tripID]);
 
   return (
     <Card

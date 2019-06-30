@@ -15,7 +15,7 @@ function Hoc({ Component, driverId }) {
       .catch(error => {
         setState('');
       });
-  }, []);
+  }, [driverId]);
 
   return <Component driver={state} />;
 }

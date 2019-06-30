@@ -75,7 +75,7 @@ function DriverCell({ driverId }) {
       .catch(error => {
         console.log(error);
       });
-  }, []);
+  }, [driverId]);
 
   return driverName;
 }
