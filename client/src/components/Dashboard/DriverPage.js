@@ -14,8 +14,8 @@ function DriverPage() {
 
   useEffect(() => {
     fetch('/api/drivers')
-      .then(rawDrivers => rawDrivers.json())
-      .then(driversObject => driversObject.data)
+      .then(Response => Response.json())
+      .then(data => data.data)
       .then(drivers => {
         setDrivers(drivers);
         setDriver(drivers[0]);

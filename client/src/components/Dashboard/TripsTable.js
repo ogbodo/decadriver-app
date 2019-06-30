@@ -7,10 +7,10 @@ function GetTripsData() {
 
   useEffect(() => {
     fetch('/api/trips')
-      .then(trips => trips.json())
-      .then(objectData => objectData.data)
-      .then(tripsData => {
-        setTripState(tripsData);
+      .then(response => response.json())
+      .then(data => data.data)
+      .then(trips => {
+        setTripState(trips);
       });
   }, []);
 
@@ -45,8 +45,7 @@ function GetTripsData() {
   });
 
   return (
-    <div>
-      {/* <Table striped bordered hover className="table-wrapper-scroll-y"> */}
+    <div style={{ overflowY: 'scroll', height: '45rem' }}>
       <Table striped bordered hover style={{ marginTop: '10px' }}>
         <thead style={{ backgroundColor: 'rgb(207, 51, 207)' }}>
           <tr>
@@ -63,13 +62,13 @@ function GetTripsData() {
   );
 }
 
-function DriverCell(props) {
+function DriverCell({ driverId }) {
   const [driverName, setDriverName] = useState('No Name');
 
   useEffect(() => {
-    fetch(`/api/driver/${props.driverId}`)
-      .then(rawDriver => rawDriver.json())
-      .then(driverObject => driverObject.data)
+    fetch(`/api/driver/${driverId}`)
+      .then(response => response.json())
+      .then(data => data.data)
       .then(driver => {
         setDriverName(driver.name);
       })

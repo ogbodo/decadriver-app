@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Bar, Pie } from 'react-chartjs-2';
 import { Card } from 'reactstrap';
+
 function Charts() {
   const [revenueSummary, setRevenueSummary] = useState({});
   const [genderRatio, seGenderRatio] = useState({});
@@ -8,8 +9,8 @@ function Charts() {
 
   useEffect(() => {
     fetch(`/api/stats`)
-      .then(rawStat => rawStat.json())
-      .then(statObject => statObject.data)
+      .then(response => response.json())
+      .then(data => data.data)
       .then(stat => {
         const colors = ['rgba(255,149,237,0.6)', 'rgba(54,162,235,0.6)'];
         setRevenueSummary({

@@ -65,7 +65,7 @@ function TripDetails({ tripID }) {
               Customer Gender: {tripDetails.user ? tripDetails.user.gender : ''}
             </ListGroupItem>
             <ListGroupItem>
-              Customer Company:{' '}
+              Customer Company:
               {tripDetails.user ? tripDetails.user.company : ''}
             </ListGroupItem>
             <ListGroupItem>
@@ -76,11 +76,11 @@ function TripDetails({ tripID }) {
             </ListGroupItem>
             <ListGroupItem>Trip Date: {tripDetails.created}</ListGroupItem>
             <ListGroupItem>
-              Pickup Address:{' '}
+              Pickup Address:
               {tripDetails.pickup ? tripDetails.pickup.address : ''}
             </ListGroupItem>
             <ListGroupItem>
-              Destination Address:{' '}
+              Destination Address:
               {tripDetails.destination ? tripDetails.destination.address : ''}
             </ListGroupItem>
           </div>
