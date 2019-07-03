@@ -8,8 +8,6 @@ function Hoc({ Component, driverId }) {
       .then(response => response.json())
       .then(data => data.data)
       .then(driverObj => {
-        console.log(driverObj);
-
         setState(driverObj);
       })
       .catch(error => {
