@@ -2,11 +2,11 @@
   "name": "decarides-service",
   "version": "1.0.0",
   "main": "bin/www",
-  "author": "Bond <dammyakinmade@gmail.com>",
+  "author": "Izuking <matthiasogbodo@gmail.com>",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "postinstall": "tsc",
+    "postinstall": "/setups.sh",
     "start": "bin/www",
     "client:start": "cd client; npm start"
   },
